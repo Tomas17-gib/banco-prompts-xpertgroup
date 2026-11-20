@@ -3,7 +3,8 @@ const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
     uri: process.env.DATABASE_URL,
-    waitForConnections: true, // si todas están ocupadas, espera en lugar de fallar
+    timezone: 'Z',            // las fechas de MySQL están en UTC
+    waitForConnections: true,
     connectionLimit: 10
 });
 
