@@ -1,0 +1,226 @@
+:root {
+    --xg-azul: #0b3d91;
+    --xg-azul-oscuro: #072a66;
+    --xg-azul-medio: #1565c0;
+    --xg-azul-claro: #e8f0fc;
+    --xg-blanco: #ffffff;
+    --xg-texto: #1b2a41;
+
+
+    --bs-primary: var(--xg-azul-medio);
+    --bs-primary-rgb: 21, 101, 192;
+    --bs-body-color: var(--xg-texto);
+}
+
+body {
+    background-color: #f4f7fc;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+
+.navbar-xg {
+    background: var(--xg-azul-oscuro);
+    box-shadow: 0 2px 10px rgba(7, 42, 102, .25);
+}
+
+.logo-xg {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--xg-blanco);
+    color: var(--xg-azul);
+    font-weight: 800;
+}
+
+.brand-sub {
+    font-weight: 300;
+    opacity: .85;
+}
+
+
+.hero-xg {
+    background: linear-gradient(135deg, var(--xg-azul) 0%, var(--xg-azul-medio) 100%);
+    color: var(--xg-blanco);
+    padding: 2.5rem 0 3rem;
+}
+
+.buscador {
+    border-radius: .75rem;
+    overflow: hidden;
+}
+
+.buscador .form-control:focus {
+    box-shadow: none;
+}
+
+
+.btn-filtro {
+    background: var(--xg-blanco);
+    color: var(--xg-azul);
+    border: 1px solid #cfdcf2;
+    border-radius: 2rem;
+    font-weight: 500;
+}
+
+.btn-filtro:hover {
+    background: var(--xg-azul-claro);
+    color: var(--xg-azul);
+}
+
+.btn-filtro.active {
+    background: var(--xg-azul);
+    border-color: var(--xg-azul);
+    color: var(--xg-blanco);
+}
+
+.btn-filtro .contador {
+    background: var(--xg-azul-claro);
+    color: var(--xg-azul);
+    margin-left: .25rem;
+}
+
+.btn-filtro.active .contador {
+    background: var(--xg-blanco);
+}
+
+
+.btn-xg {
+    background: var(--xg-azul);
+    border-color: var(--xg-azul);
+    color: var(--xg-blanco);
+}
+
+.btn-xg:hover,
+.btn-xg:focus {
+    background: var(--xg-azul-oscuro);
+    border-color: var(--xg-azul-oscuro);
+    color: var(--xg-blanco);
+}
+
+
+.card-prompt {
+    border: 0;
+    border-top: 4px solid var(--xg-azul-medio);
+    border-radius: .75rem;
+    box-shadow: 0 2px 8px rgba(11, 61, 145, .08);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card-prompt:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(11, 61, 145, .15);
+}
+
+.card-prompt .card-title {
+    color: var(--xg-azul-oscuro);
+}
+
+.card-prompt .descripcion {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cat-codigo {
+    --cat: #1565c0;
+}
+
+.cat-testing {
+    --cat: #0d7c66;
+}
+
+.cat-sql {
+    --cat: #6a3fb5;
+}
+
+.cat-documentacion {
+    --cat: #c26a00;
+}
+
+.card-prompt[class*="cat-"] {
+    border-top-color: var(--cat);
+}
+
+.badge-categoria {
+    background: color-mix(in srgb, var(--cat, #1565c0) 12%, white);
+    color: var(--cat, #1565c0);
+    font-weight: 600;
+}
+
+.badge-herramienta {
+    background: var(--xg-azul-claro);
+    color: var(--xg-azul);
+    font-weight: 500;
+}
+
+
+.prompt-texto {
+    background: var(--xg-azul-claro);
+    border-left: 3px solid var(--xg-azul-medio);
+    border-radius: .5rem;
+    padding: .75rem;
+    font-size: .85rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+}
+
+.prompt-preview {
+    max-height: 7.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.prompt-preview::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 2rem;
+    background: linear-gradient(transparent, var(--xg-azul-claro));
+}
+
+.prompt-completo {
+    max-height: 55vh;
+    overflow: auto;
+}
+
+
+mark {
+    background: #fff3a3;
+    padding: 0 .1em;
+    border-radius: .2em;
+}
+
+
+.modal-header-xg {
+    background: var(--xg-azul);
+    color: var(--xg-blanco);
+}
+
+
+.footer-xg {
+    background: var(--xg-azul-oscuro);
+    color: rgba(255, 255, 255, .8);
+}
+
+
+@media (max-width: 575.98px) {
+    .hero-xg {
+        padding: 1.75rem 0 2rem;
+    }
+
+    .btn-filtro {
+        font-size: .85rem;
+        padding: .3rem .7rem;
+    }
+}
