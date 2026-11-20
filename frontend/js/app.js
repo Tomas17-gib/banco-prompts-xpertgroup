@@ -4,6 +4,8 @@ import {
     renderizarLista, mostrarEstado, mostrarToast, copiarAlPortapapeles,
     normalizar, badgesHtml, escaparHtml, formatearFecha
 } from './ui.js';
+import { iniciarFormulario, abrirParaCrear, abrirParaEditar } from './formulario.js';
+import { iniciarEliminacion, confirmarEliminacion } from './eliminar.js';
 
 // ---------- Estado ----------
 const estado = {
@@ -105,6 +107,30 @@ function verDetalle(prompt) {
     modalDetalle.show();
 }
 
+// Al guardar en el formulario, actualizamos el estado local sin pedir todo al servidor
+function alGuardarPrompt(prompt, tipo) {
+    if (tipo === 'editado') {
+        for (let i = 0; i < estado.prompts.length; i++) {
+            if (estado.prompts[i].id === prompt.id) {
+                estado.prompts.splice(i, 1); // quitamos la versión vieja
+                break;
+            }
+        }
+    }
+    estado.prompts.unshift(prompt); // el nuevo o el recién editado queda de primero
+    actualizarVista();
+}
+
+// Quita el prompt eliminado del estado local
+function alEliminarPrompt(id) {
+    const restantes = [];
+    for (const prompt of estado.prompts) {
+        if (prompt.id !== id) restantes.push(prompt);
+    }
+    estado.prompts = restantes;
+    actualizarVista();
+}
+
 // ---------- Eventos ----------
 // Búsqueda en tiempo real: se ejecuta con cada tecla
 buscador.addEventListener('input', () => {
@@ -137,7 +163,12 @@ lista.addEventListener('click', (evento) => {
     const accion = boton.dataset.accion;
     if (accion === 'copiar') copiarPrompt(prompt, boton);
     if (accion === 'ver') verDetalle(prompt);
+    if (accion === 'editar') abrirParaEditar(prompt);
+    if (accion === 'eliminar') confirmarEliminacion(prompt);
 });
+
+
+document.getElementById('btnNuevo').addEventListener('click', abrirParaCrear);
 
 document.getElementById('btnCopiarDetalle').addEventListener('click', (evento) => {
     if (promptEnDetalle) copiarPrompt(promptEnDetalle, evento.currentTarget);
@@ -146,4 +177,6 @@ document.getElementById('btnCopiarDetalle').addEventListener('click', (evento) =
 document.getElementById('btnReintentar').addEventListener('click', cargarPrompts);
 
 // ---------- Inicio ----------
+iniciarFormulario(alGuardarPrompt);
+iniciarEliminacion(alEliminarPrompt);
 cargarPrompts();
