@@ -10,6 +10,10 @@ function leerId(req) {
     return id;
 }
 
+function noEncontrado(res) {
+    return res.status(404).json({ ok: false, mensaje: 'Prompt no encontrado' });
+}
+
 // GET /api/prompts
 async function listar(req, res, next) {
     try {
@@ -43,4 +47,25 @@ async function crear(req, res, next) {
     }
 }
 
-module.exports = { listar, obtener, crear };
+// PUT /api/prompts/:id
+async function actualizar(req, res, next) {
+    try {
+        const actualizado = await Prompt.actualizar(leerId(req), req.body);
+        if (!actualizado) return noEncontrado(res);
+        res.json({ ok: true, mensaje: 'Prompt actualizado correctamente', data: actualizado });
+    } catch (error) {
+        next(error);
+    }
+}
+
+// DELETE /api/prompts/:id
+async function eliminar(req, res, next) {
+    try {
+        const eliminado = await Prompt.eliminar(leerId(req));
+        if (!eliminado) return noEncontrado(res);
+        res.json({ ok: true, mensaje: 'Prompt eliminado correctamente' });
+    } catch (error) {
+        next(error);
+    }
+}
+module.exports = { listar, obtener, crear, actualizar, eliminar };

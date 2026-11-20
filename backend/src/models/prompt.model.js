@@ -23,4 +23,20 @@ async function crear({ titulo, categoria, herramienta_ia, descripcion, texto_pro
     return obtenerPorId(resultado.insertId);
 }
 
-module.exports = { obtenerTodos, obtenerPorId, crear };
+async function actualizar(id, { titulo, categoria, herramienta_ia, descripcion, texto_prompt }) {
+    const [resultado] = await pool.query(
+        `UPDATE prompts
+            SET titulo = ?, categoria = ?, herramienta_ia = ?, descripcion = ?, texto_prompt = ?
+        WHERE id = ?`,
+        [titulo, categoria, herramienta_ia, descripcion, texto_prompt, id]
+    );
+    if (resultado.affectedRows === 0) return null;
+    return obtenerPorId(id);
+}
+
+async function eliminar(id) {
+    const [resultado] = await pool.query('DELETE FROM prompts WHERE id = ?', [id]);
+    return resultado.affectedRows > 0;
+}
+
+module.exports = { obtenerTodos, obtenerPorId, crear, actualizar, eliminar };

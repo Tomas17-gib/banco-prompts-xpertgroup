@@ -7,5 +7,7 @@ const router = Router();
 router.get('/', controller.listar);
 router.get('/:id', controller.obtener);
 router.post('/', validarPrompt, controller.crear);
+router.put('/:id', validarPrompt, controller.actualizar);
+router.delete('/:id', controller.eliminar);
 
 module.exports = router;
